@@ -9,6 +9,8 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 
+.pnpm-lock.yaml
+
 # eslint
 .eslintcache
 
@@ -21,3 +23,5 @@ node_modules
 
 # cli
 dist
+
+packages/eliza/cache

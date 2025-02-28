@@ -2,32 +2,36 @@
   "name": "se-2",
   "version": "0.0.1",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "yarn workspace @se-2/nextjs dev",
-    "next:lint": "yarn workspace @se-2/nextjs lint",
-    "next:format": "yarn workspace @se-2/nextjs format",
-    "next:check-types": "yarn workspace @se-2/nextjs check-types",
-    "next:build": "yarn workspace @se-2/nextjs build",
-    "next:serve": "yarn workspace @se-2/nextjs serve",
-    "format": "yarn next:format",
+    "start": "pnpm --filter @se-2/nextjs dev",
+    "next:lint": "pnpm --filter @se-2/nextjs lint",
+    "next:format": "pnpm --filter @se-2/nextjs format",
+    "next:check-types": "pnpm --filter @se-2/nextjs check-types",
+    "next:build": "pnpm --filter @se-2/nextjs build",
+    "next:serve": "pnpm --filter @se-2/nextjs serve",
+    "format": "pnpm run next:format",
     "postinstall": "husky install",
     "precommit": "lint-staged",
-    "vercel": "yarn workspace @se-2/nextjs vercel",
-    "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo",
-    "vercel:login": "yarn workspace @se-2/nextjs vercel:login",
-    "ipfs": "yarn workspace @se-2/nextjs ipfs"
+    "vercel": "pnpm --filter @se-2/nextjs vercel",
+    "vercel:yolo": "pnpm --filter @se-2/nextjs vercel:yolo",
+    "vercel:login": "pnpm --filter @se-2/nextjs vercel:login",
+    "ipfs": "pnpm --filter @se-2/nextjs ipfs",
+    "build:agent": "pnpm --filter @se-2/eliza build",
+    "start:agent": "pnpm --filter @se-2/eliza start",
+    "clean:agent": "pnpm --filter @se-2/eliza clean"
   },
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "pnpm@9",
   "devDependencies": {
     "husky": "~9.1.6",
     "lint-staged": "~13.2.2"
   },
   "engines": {
     "node": ">=20.18.3"
+  },
+  "dependencies": {
+    "typescript": "^5.7.3"
   }
 }
