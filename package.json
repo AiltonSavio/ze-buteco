@@ -21,7 +21,8 @@
     "ipfs": "pnpm --filter @se-2/nextjs ipfs",
     "build:agent": "pnpm --filter @se-2/eliza build",
     "start:agent": "pnpm --filter @se-2/eliza start",
-    "clean:agent": "pnpm --filter @se-2/eliza clean"
+    "clean:agent": "pnpm --filter @se-2/eliza clean",
+    "stylus:check": "pnpm --filter @se-2/stylus cargo stylus check"
   },
   "packageManager": "pnpm@9",
   "devDependencies": {

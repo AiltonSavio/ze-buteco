@@ -102,7 +102,7 @@ const externalContracts = {
   },
   421_614: {
     CervejaNFT: {
-      address: "0xf984727f7a4eeba9e9def16fcaa156258784eb3f",
+      address: "0x40503bed56a675effc87352a98131a303aa83ddf",
       abi: [
         {
           inputs: [],

@@ -10,7 +10,7 @@ import { useScaffoldContract } from "~~/hooks/scaffold-eth";
 type TokenDetail = {
   tokenId: number;
   owner: string;
-  svg: string;
+  imageUrl: string;
   taste: number;
   texture: number;
   aroma: number;
@@ -34,7 +34,7 @@ const CervejasPage: NextPage<{ params: { name: string } }> = ({ params }) => {
       if (!contract) return;
       try {
         // Fetch totalSupply to iterate over tokenIds
-        const totalSupply = await contract.read.totalSupply();
+        const totalSupply = await contract?.read.totalSupply();
         const tokenIds = Array.from({ length: Number(totalSupply) }, (_, i) => BigInt(i));
 
         // Fetch metadata and owner for each token
@@ -42,9 +42,8 @@ const CervejasPage: NextPage<{ params: { name: string } }> = ({ params }) => {
           tokenIds.map(async tokenId => {
             try {
               // Fetch metadata from tokenURI
-              const metadataUri = await contract?.read.tokenURI([tokenId]);
-              const metadataResponse = await fetch(metadataUri);
-              const metadata = await metadataResponse.json();
+              const metadataString = await contract?.read.tokenURI([tokenId]);
+              const metadata = JSON.parse(metadataString);
 
               if (!metadata.attributes) return null;
 
@@ -59,9 +58,9 @@ const CervejasPage: NextPage<{ params: { name: string } }> = ({ params }) => {
               const owner = await contract?.read.ownerOf([tokenId]);
 
               return {
-                tokenId,
+                tokenId: Number(tokenId),
                 owner,
-                imageUrl: metadata.image || metadata.image_url || "/default-image.png",
+                imageUrl: metadata.image || "/default-image.png",
                 name: metadata.name,
                 taste,
                 texture,
@@ -99,7 +98,7 @@ const CervejasPage: NextPage<{ params: { name: string } }> = ({ params }) => {
           {tokens.map(token => (
             <div key={token.tokenId} className="border rounded p-4 shadow">
               <div className="flex justify-center w-full">
-                <div className="mt-2" dangerouslySetInnerHTML={{ __html: token.svg }} />
+                <div className="mt-2" dangerouslySetInnerHTML={{ __html: token.imageUrl }} />
               </div>
               <p>
                 <strong>ID:</strong> {token.tokenId}

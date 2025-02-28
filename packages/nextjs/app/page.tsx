@@ -17,10 +17,8 @@ const Home: NextPage = () => {
     walletClient,
   });
 
-  // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Mint form state
   const [mintName, setMintName] = useState("");
   const [taste, setTaste] = useState(3);
   const [texture, setTexture] = useState(3);
@@ -43,12 +41,10 @@ const Home: NextPage = () => {
 
         const cervejaMap: Record<string, { totalRating: number; count: number }> = {};
 
-        // Loop through each tokenId and fetch owner + metadata
         for (let tokenId = 0; tokenId < totalSupply; tokenId++) {
           const metadata = await contract?.read.tokenURI([BigInt(tokenId)]);
           if (!metadata) continue;
 
-          // Parse JSON from tokenURI
           const parsedMetadata = JSON.parse(metadata);
           const name = parsedMetadata.name;
           const taste = parsedMetadata.attributes.find((attr: any) => attr.trait_type === "Sabor")?.value || 0;
@@ -66,14 +62,12 @@ const Home: NextPage = () => {
           }
         }
 
-        // Convert to leaderboard format
         const leaderboardData = Object.entries(cervejaMap).map(([name, stats]) => ({
           name,
           overallRating: stats.totalRating / stats.count,
           count: stats.count,
         }));
 
-        // Sort by overall rating
         leaderboardData.sort((a, b) => b.overallRating - a.overallRating);
         setLeaderboard(leaderboardData);
       } catch (error) {
@@ -84,7 +78,6 @@ const Home: NextPage = () => {
     fetchNFTData();
   }, [contract, totalSupply]);
 
-  // Hook for writing to the contract.
   const { writeContractAsync: mintCervejaAsync } = useScaffoldWriteContract({
     contractName: "CervejaNFT",
   });
@@ -106,6 +99,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-10 bg-base-100">
+      <div className="hidden xl:block xl:absolute w-[30%] h-[55%] inset-y-20 inset-x-[1200px] bg-[url('/ze-buteco.png')] bg-cover bg-center opacity-40"></div>
       <header className="w-full max-w-5xl text-center mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold">Placar de Cervejas Artesanais NFT</h1>
         <p className="mt-2 text-base sm:text-lg">Veja as avaliações e mint novas Cervejas!</p>
