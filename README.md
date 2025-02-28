@@ -1,4 +1,6 @@
-# 🍺 Zé Buteco - Web3 Craft Beer AI & NFT System  
+# 🍺 Zé Buteco - Web3 Craft Beer AI & NFT System
+
+![Zé Buteco](./ze-buteco.webp)
 
 ## 🏗 Project Overview  
 
